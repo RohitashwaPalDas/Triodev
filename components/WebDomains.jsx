@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,69 +20,6 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 const WebDomains = () => {
-  const [isClient, setIsClient] = useState(false);
-  const headingRef = useRef(null);
-  const domainRef = useRef([]);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useGSAP(() => {
-    // Check for document readiness
-    if (typeof window === 'undefined' || !isClient) return;
-
-    // Ensure DOM is ready
-    const ctx = gsap.context(() => {
-      // Heading animation
-      gsap.from(headingRef.current, {
-        scale: 0.6,
-        opacity: 0,
-        duration: 0.8,
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: "top 80%",
-          toggleActions: "restart reverse restart reverse",
-        },
-      });
-
-      // Animate each card-part individually
-      domainRef.current.forEach((el, i) => {
-        if (!el) return; // Skip if element ref is null
-
-        const parts = el.querySelectorAll(".card-part");
-
-        parts.forEach((part, idx) => {
-          gsap.fromTo(
-            part,
-            {
-              opacity: 0,
-              x: i % 2 === 0 ? -100 : 100,
-            },
-            {
-              opacity: 1,
-              x: 0,
-              duration: 0.6,
-              delay: idx * 0.2,
-              scrollTrigger: {
-                trigger: part,
-                start: "top 85%",
-                end: "bottom 5%",
-                toggleActions: "play reverse play reverse",
-              },
-            }
-          );
-        });
-      });
-    });
-
-    return () => ctx.revert(); // Cleanup
-  }, [isClient]); // Add isClient to dependency array
-
-  if (!isClient) {
-    return <div>Loading...</div>; // Or your loading component
-  }
-
   const services = [
     {
       title: "Gyms & Fitness Studios",
@@ -155,6 +92,53 @@ const WebDomains = () => {
       img: "https://images.pexels.com/photos/167832/pexels-photo-167832.jpeg",
     },
   ];
+
+  const headingRef = useRef(null);
+  const domainRef = useRef([]);
+
+  useGSAP(() => {
+  // Heading animation
+  gsap.from(headingRef.current, {
+    scale: 0.6,
+    opacity: 0,
+    duration: 0.8,
+    scrollTrigger: {
+      trigger: headingRef.current,
+      start: "top 80%",
+      toggleActions: "restart reverse restart reverse",
+    },
+  });
+
+  // Animate each card-part individually
+  domainRef.current.forEach((el, i) => {
+    const parts = el.querySelectorAll(".card-part");
+
+    parts.forEach((part, idx) => {
+      gsap.fromTo(
+        part,
+        {
+          opacity: 0,
+          x: i % 2 === 0 ? -100 : 100, // odd → left, even → right
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.6,
+          delay: idx * 0.2, // image → icon → title → desc
+          scrollTrigger: {
+            trigger: part,
+            start: "top 85%", // trigger when each part enters
+            end: "bottom 5%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+    });
+  });
+  ScrollTrigger.refresh();
+}, []);
+
+
 
   return (
     <section className="py-16 max-w-7xl mx-auto px-6">
