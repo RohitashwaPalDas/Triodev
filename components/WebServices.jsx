@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -65,100 +65,103 @@ const WebServices = ({ onSelect, selectedService }) => {
   const serviceRef = useRef([]);
 
   useGSAP(() => {
-    // Heading animation
-    gsap.from(headingRef.current, {
-      scale: 0.6,
-      opacity: 0,
-      duration: 0.8,
-      scrollTrigger: {
-        trigger: headingRef.current,
+    // Add check for document readiness
+    if (typeof window === 'undefined') return;
+
+    // Ensure DOM is ready
+    const ctx = gsap.context(() => {
+      // Heading animation
+      gsap.from(headingRef.current, {
+        scale: 0.6,
+        opacity: 0,
+        duration: 0.8,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: "top 80%",
+          toggleActions: "restart reverse restart reverse",
+        },
+      });
+
+      gsap.from(subHeadRef.current, {
+        scale: 0.6,
+        opacity: 0,
+        duration: 0.8,
+        delay:0.2,
+        scrollTrigger: {
+          trigger: subHeadRef.current,
+          start: "top 80%",
+          toggleActions: "restart reverse restart reverse",
+        },
+      });
+
+      gsap.set(serviceRef.current, { opacity: 0, scale: 0.4 });
+
+      // Cards batch animation with fromTo
+      ScrollTrigger.batch(serviceRef.current, {
         start: "top 80%",
-        toggleActions: "restart reverse restart reverse",
-        invalidateOnRefresh: true,
-      },
+        end: "bottom 15%",
+        onEnter: (batch) =>
+          gsap.fromTo(
+            batch,
+            { scale: 0.4, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 0.8,
+              stagger: 0.2,
+              overwrite: "auto",
+            }
+          ),
+        onLeave: (batch) =>
+          gsap.fromTo(
+            batch,
+            { scale: 1, opacity: 1 },
+            {
+              scale: 0.4,
+              opacity: 0,
+              duration: 0.5,
+              stagger: 0.2,
+              overwrite: "auto",
+            }
+          ),
+        onEnterBack: (batch) =>
+          gsap.fromTo(
+            batch,
+            { scale: 0.4, opacity: 0 },
+            {
+              scale: 1,
+              opacity: 1,
+              duration: 0.8,
+              stagger: 0.2,
+              overwrite: "auto",
+            }
+          ),
+        onLeaveBack: (batch) =>
+          gsap.fromTo(
+            batch,
+            { scale: 1, opacity: 1 },
+            {
+              scale: 0.4,
+              opacity: 0,
+              duration: 0.5,
+              stagger: 0.2,
+              overwrite: "auto",
+            }
+          ),
+      });
     });
 
-    gsap.from(subHeadRef.current, {
-      scale: 0.6,
-      opacity: 0,
-      duration: 0.8,
-      delay: 0.2,
-      scrollTrigger: {
-        trigger: subHeadRef.current,
-        start: "top 80%",
-        toggleActions: "restart reverse restart reverse",
-        invalidateOnRefresh: true,
-      },
-    });
-
-    gsap.set(serviceRef.current, { opacity: 0, scale: 0.4 });
-
-    // Cards batch animation
-    ScrollTrigger.batch(serviceRef.current, {
-      start: "top 80%",
-      end: "bottom 15%",
-      invalidateOnRefresh: true,
-      onEnter: (batch) =>
-        gsap.fromTo(
-          batch,
-          { scale: 0.4, opacity: 0 },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.2,
-            overwrite: "auto",
-          }
-        ),
-      onLeave: (batch) =>
-        gsap.to(batch, {
-          scale: 0.4,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.2,
-          overwrite: "auto",
-        }),
-      onEnterBack: (batch) =>
-        gsap.fromTo(
-          batch,
-          { scale: 0.4, opacity: 0 },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.2,
-            overwrite: "auto",
-          }
-        ),
-      onLeaveBack: (batch) =>
-        gsap.to(batch, {
-          scale: 0.4,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.2,
-          overwrite: "auto",
-        }),
-    });
-
-    // 👇 Fix for first-load issue with assets
-    window.addEventListener("load", () => {
-      ScrollTrigger.refresh();
-    });
+    return () => ctx.revert(); // Cleanup
   }, []);
+
 
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <h2
-          ref={headingRef}
-          className="text-4xl font-bold text-center mb-4 text-blue-600"
-        >
+        <h2 ref={headingRef} className="text-4xl font-bold text-center mb-4 text-blue-600">
           Our Web Services
         </h2>
-        <p
-          ref={subHeadRef}
-          className="text-center text-gray-600 max-w-2xl mx-auto mb-16"
-        >
+        <p ref={subHeadRef} className="text-center text-gray-600 max-w-2xl mx-auto mb-16">
           We offer end-to-end digital solutions to help your business thrive
           online. From design to deployment and beyond, we've got you covered.
         </p>
