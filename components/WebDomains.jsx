@@ -128,7 +128,7 @@ const WebDomains = () => {
           scrollTrigger: {
             trigger: part,
             start: "top 85%", // trigger when each part enters
-            end: "bottom 15%",
+            end: "bottom 5%",
             toggleActions: "play reverse play reverse",
           },
         }
