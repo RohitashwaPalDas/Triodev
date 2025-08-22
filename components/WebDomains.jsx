@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import {
-  FaCheckCircle,
   FaDumbbell,
   FaUtensils,
   FaSchool,
@@ -97,51 +96,63 @@ const WebDomains = () => {
   const domainRef = useRef([]);
 
   useGSAP(() => {
-  // Heading animation
-  gsap.from(headingRef.current, {
-    scale: 0.6,
-    opacity: 0,
-    duration: 0.8,
-    scrollTrigger: {
-      trigger: headingRef.current,
-      start: "top 80%",
-      toggleActions: "restart reverse restart reverse",
-    },
-  });
-
-  // Animate each card-part individually
-  domainRef.current.forEach((el, i) => {
-    const parts = el.querySelectorAll(".card-part");
-
-    parts.forEach((part, idx) => {
-      gsap.fromTo(
-        part,
-        {
-          opacity: 0,
-          x: i % 2 === 0 ? -100 : 100, // odd → left, even → right
-        },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.6,
-          delay: idx * 0.2, // image → icon → title → desc
-          scrollTrigger: {
-            trigger: part,
-            start: "top 85%", // trigger when each part enters
-            end: "bottom 5%",
-            toggleActions: "play reverse play reverse",
-          },
-        }
-      );
+    // Heading animation
+    gsap.from(headingRef.current, {
+      scale: 0.6,
+      opacity: 0,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: headingRef.current,
+        start: "top 80%",
+        toggleActions: "restart reverse restart reverse",
+        invalidateOnRefresh: true,
+      },
     });
-  });
-}, []);
 
+    domainRef.current.forEach((el) => {
+      gsap.set(el.querySelectorAll(".card-part"), { opacity: 0 });
+    });
 
+    // Animate each card-part individually
+    domainRef.current.forEach((el, i) => {
+      const parts = el.querySelectorAll(".card-part");
+
+      parts.forEach((part, idx) => {
+        gsap.fromTo(
+          part,
+          {
+            opacity: 0,
+            x: i % 2 === 0 ? -100 : 100, // odd → left, even → right
+          },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.6,
+            delay: idx * 0.2, // image → icon → title → desc
+            scrollTrigger: {
+              trigger: part,
+              start: "top 85%", // trigger when each part enters
+              end: "bottom 5%",
+              toggleActions: "play reverse play reverse",
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      });
+    });
+
+    // 👇 Fix for first-load issue with images
+    window.addEventListener("load", () => {
+      ScrollTrigger.refresh();
+    });
+  }, []);
 
   return (
     <section className="py-16 max-w-7xl mx-auto px-6">
-      <h2 ref={headingRef} className="text-3xl font-bold text-center mb-12 text-blue-600">
+      <h2
+        ref={headingRef}
+        className="text-3xl font-bold text-center mb-12 text-blue-600"
+      >
         Our Service Domains
       </h2>
       <div className="space-y-16">
@@ -162,11 +173,13 @@ const WebDomains = () => {
             </div>
             <div className="flex-1 text-center md:text-left ">
               <div
-                className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${service.bgColor} mb-4 shadow-lg card-part`} 
+                className={`inline-flex items-center justify-center w-16 h-16 rounded-full ${service.bgColor} mb-4 shadow-lg card-part`}
               >
                 {service.icon}
               </div>
-              <h3 className="text-2xl font-semibold mb-4 card-part text-blue-600">{service.title}</h3>
+              <h3 className="text-2xl font-semibold mb-4 card-part text-blue-600">
+                {service.title}
+              </h3>
               <p className="text-gray-600 card-part">{service.desc}</p>
             </div>
           </div>
