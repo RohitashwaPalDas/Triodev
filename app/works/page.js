@@ -67,7 +67,7 @@ const WorkPage = () => {
             src="https://lottie.host/acc2a738-b345-47ad-86f2-1a0c9523038e/cYYG9AKovz.lottie"
             loop
             autoplay
-            className="w-full scale-150 sm:scale-200 md:w-[420px] drop-shadow-lg"
+            className="w-[80%] sm:w-[70%] md:w-[500px] lg:w-[600px] scale-125 sm:scale-150 mx-auto drop-shadow-lg"
           />
         </div>
       </div>
