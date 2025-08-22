@@ -97,6 +97,8 @@ const WebDomains = () => {
   const domainRef = useRef([]);
 
   useGSAP(() => {
+  if (!headingRef.current) return;
+
   // Heading animation
   gsap.from(headingRef.current, {
     scale: 0.6,
@@ -111,23 +113,26 @@ const WebDomains = () => {
 
   // Animate each card-part individually
   domainRef.current.forEach((el, i) => {
+    if (!el) return; // ✅ safeguard, avoid null refs
+
     const parts = el.querySelectorAll(".card-part");
+    if (!parts.length) return; // safeguard again
 
     parts.forEach((part, idx) => {
       gsap.fromTo(
         part,
         {
           opacity: 0,
-          x: i % 2 === 0 ? -100 : 100, // odd → left, even → right
+          x: i % 2 === 0 ? -100 : 100,
         },
         {
           opacity: 1,
           x: 0,
           duration: 0.6,
-          delay: idx * 0.2, // image → icon → title → desc
+          delay: idx * 0.2,
           scrollTrigger: {
             trigger: part,
-            start: "top 85%", // trigger when each part enters
+            start: "top 85%",
             end: "bottom 5%",
             toggleActions: "play reverse play reverse",
           },
@@ -135,8 +140,13 @@ const WebDomains = () => {
       );
     });
   });
-  ScrollTrigger.refresh();
+
+  // ✅ delay refresh until layout/images are loaded
+  setTimeout(() => {
+    ScrollTrigger.refresh();
+  }, 300);
 }, []);
+
 
 
 
