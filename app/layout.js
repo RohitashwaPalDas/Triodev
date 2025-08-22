@@ -4,6 +4,13 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Navbar from "@/components/Navbar";
 import 'remixicon/fonts/remixicon.css';
 
+import { Orbitron, Outfit, Ovo, Prata } from "next/font/google";
+
+const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron" });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const ovo = Ovo({ subsets: ["latin"], weight: "400", variable: "--font-ovo" });
+const prata = Prata({ subsets: ["latin"], weight: "400", variable: "--font-prata" });
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -21,13 +28,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`ovo-regular antialiased`}
-      >
-        <Navbar/>
+    <html lang="en" className={`${orbitron.variable} ${outfit.variable} ${ovo.variable} ${prata.variable}`}>
+      <body>
+        <Navbar />
         <div className="container mt-28 px-4 min-w-full">{children}</div>
-        
+
       </body>
     </html>
   );
