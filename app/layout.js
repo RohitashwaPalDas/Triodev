@@ -28,7 +28,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${orbitron.variable} ${outfit.variable} ${ovo.variable} ${prata.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${orbitron.variable} ${outfit.variable} ${ovo.variable} ${prata.variable}`}>
       <body>
         <Navbar />
         <div className="container mt-28 px-4 min-w-full">{children}</div>
