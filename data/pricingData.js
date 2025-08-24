@@ -85,7 +85,7 @@ const pricingData = [
     },
 
     {
-        category: "UI/UX Design",
+        category: "UI UX Design",
         plans: [
             {
                 name: "Basic",

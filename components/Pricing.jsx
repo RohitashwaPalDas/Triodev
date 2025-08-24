@@ -16,6 +16,8 @@ const Pricing = ({selectedService}) => {
   const cardRef = useRef([]);
   const sectionRef = useRef(null);
 
+  
+
   useGSAP(() => {
     // Heading animation
     gsap.from(headingRef.current, {

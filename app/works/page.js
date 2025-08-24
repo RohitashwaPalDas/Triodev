@@ -58,11 +58,7 @@ const WorkPage = () => {
 
         {/* Right Side - Illustration / Picture */}
         <div className="w-full flex justify-center md:justify-end">
-          {/* <img
-            src="https://cdni.iconscout.com/illustration/premium/thumb/web-development-3845276-3204013.png?f=webp"
-            alt="Projects Illustration"
-            className="w-96 md:w-[420px] drop-shadow-lg animate-fadeIn"
-          /> */}
+          
           <DotLottieReact
             src="https://lottie.host/acc2a738-b345-47ad-86f2-1a0c9523038e/cYYG9AKovz.lottie"
             loop
@@ -106,18 +102,7 @@ const WorkPage = () => {
         ))}
       </div>
 
-      {/* Tailwind Custom Animations */}
-      <style>
-        {`
-          @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          .animate-fadeIn {
-            animation: fadeIn 1.2s ease-out forwards;
-          }
-        `}
-      </style>
+      
     </div>
   );
 };

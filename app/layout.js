@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
     <html lang="en" data-scroll-behavior="smooth" className={`${orbitron.variable} ${outfit.variable} ${ovo.variable} ${prata.variable}`}>
       <body>
         <Navbar />
-        <div className="container mt-28 px-4 min-w-full">{children}</div>
+        <div className="container mt-28 px-4 min-w-full ovo-regular">{children}</div>
 
       </body>
     </html>

@@ -24,7 +24,7 @@ const WebServices = ({ onSelect, selectedService }) => {
       desc: "Custom-built websites tailored to your needs — from simple static pages to complex dynamic platforms.",
     },
     {
-      title: "UI/UX Design",
+      title: "UI UX Design",
       icon: <FaPencilRuler className="text-purple-500 text-4xl" />,
       desc: "Pixel-perfect, user-focused designs that are both beautiful and easy to navigate.",
     },
