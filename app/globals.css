@@ -23,3 +23,22 @@ body {
 .prata-regular {
   font-family: var(--font-prata);
 }
+
+/* Custom thin blue scrollbar */
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(37, 100, 235, 0.434); /* blue-600 */
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(37, 99, 235, 0.8);
+}

@@ -16,16 +16,10 @@ export default async function PricingDetail({ params }) {
     (c) => c.category.toLowerCase() === categoryName
   );
 
-  console.log("Selected Category:", selectedCategory);
-
-  // Find matching plan
   const selectedPlan = selectedCategory.plans.find(
     (p) => p.name.toLowerCase() === planName
   );
-
   
-  console.log("Selected Plan:", selectedPlan);
-
   return (
     <PricingDetailClient
       selectedCategory={selectedCategory}

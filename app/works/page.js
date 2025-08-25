@@ -3,34 +3,16 @@
 import React from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import projects from "@/data/projectData";
+import Link from "next/link";
 
 const WorkPage = () => {
-  const projects = [
-    {
-      title: "Rythmix - Your Music Companion",
-      description:
-        "A full-featured music streaming platform with playlists, queue, history, and player system.",
-      img: "https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/381368608/original/e7739f97ed5230acde4c301d8a5659317fa939ed/develop-music-streaming-app-spotify-clone-app-radio-app-podcast-streaming-app.png",
-    },
-    {
-      title: "BongHut - Your Online Shopping Hub",
-      description:
-        "An online shopping platform with cart, wishlist, product filters, and secure checkout.",
-      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQR5BF8qByqLxlu08Q3uvS_LVl0wxoSQPpEQ&s",
-    },
-    {
-      title: "Rydo - Instant Ride Booking",
-      description:
-        "A ride-hailing application that allows users to book cabs with real-time updates.",
-      img: "https://cdn.dribbble.com/userupload/24350241/file/original-d7184b5518f7471c646adfa61c1930b9.png?format=webp&resize=400x300&vertical=center",
-    },
-    {
-      title: "Wanderlust - Travel Booking Made Easy",
-      description:
-        "A property rental platform with booking, user authentication, and review system.",
-      img: "https://img.freepik.com/free-vector/organic-flat-hotel-landing-page-with-illustrations_52683-59689.jpg?semt=ais_hybrid&w=740&q=80",
-    },
-  ];
+  const slugify = (str) =>
+  str
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-") // replace non-alphanumeric with single dash
+    .replace(/^-+|-+$/g, ""); // remove leading/trailing dashes
 
   return (
     <div className="min-h-screen py-10 relative overflow-hidden">
@@ -71,9 +53,11 @@ const WorkPage = () => {
       {/* Projects Grid */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-12 w-full max-w-7xl mx-auto relative z-10">
         {projects.map((project, index) => (
-          <div
+          <Link
             key={index}
             className="group relative bg-white/80 backdrop-blur-md rounded-2xl shadow-lg hover:shadow-2xl transition duration-500 overflow-hidden border border-gray-200 transform hover:-translate-y-3"
+            href={`/project/${slugify(project.title)}`}
+
           >
             {/* Image with hover zoom */}
             <div className="overflow-hidden">
@@ -98,7 +82,7 @@ const WorkPage = () => {
                 View Project <FaExternalLinkAlt size={14} />
               </button>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
