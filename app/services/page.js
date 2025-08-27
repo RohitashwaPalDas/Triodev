@@ -11,7 +11,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 
 
 const ServicesPage = () => {
-  const [selectedService, setSelectedService] = useState("Website Development");
+  
 
   return (
     <div>
@@ -22,10 +22,9 @@ const ServicesPage = () => {
 
       <WebDomains />
 
-      <WebServices onSelect={(serviceTitle) => setSelectedService(serviceTitle)}
-        selectedService={selectedService} />
+      <WebServices/>
 
-      <Pricing selectedService={selectedService} />
+      <Pricing/>
 
       <ServicesCTA />
 

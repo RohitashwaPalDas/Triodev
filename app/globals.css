@@ -42,3 +42,13 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgba(37, 99, 235, 0.8);
 }
+
+/* Hide horizontal scrollbar only */
+.scrollbar-hide-x::-webkit-scrollbar {
+  height: 0px; /* hide horizontal scrollbar */
+}
+.scrollbar-hide-x {
+  -ms-overflow-style: none;  /* for IE & Edge */
+  scrollbar-width: none;     /* for Firefox */
+}
+
