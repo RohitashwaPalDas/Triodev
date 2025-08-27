@@ -3,6 +3,7 @@ import "./globals.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Navbar from "@/components/Navbar";
 import 'remixicon/fonts/remixicon.css';
+import Script from "next/script";
 
 import { Orbitron, Outfit, Ovo, Prata } from "next/font/google";
 
