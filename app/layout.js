@@ -32,7 +32,10 @@ export default function RootLayout({ children }) {
       <body>
         <Navbar />
         <div className="container mt-28 px-4 min-w-full ovo-regular">{children}</div>
-        <script src="https://cdn.lordicon.com/lordicon.js"></script>
+        <Script
+          src="https://cdn.lordicon.com/lordicon.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
