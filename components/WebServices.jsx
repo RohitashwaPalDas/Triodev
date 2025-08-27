@@ -160,7 +160,7 @@ const WebServices = ({}) => {
             ref={sliderRef}
             className="flex space-x-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory px-2 py-2 scrollbar-hide-x"
           >
-            {webServices.map((service, index) => (
+            {webServices.map((service,index) => (
               <div
                 key={index}
                 ref={(el) => (serviceRef.current[index] = el)}
