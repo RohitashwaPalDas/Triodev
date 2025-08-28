@@ -48,15 +48,15 @@ const Pricing = ({}) => {
   useGSAP(() => {
     // Heading animation
     gsap.from(headingRef.current, {
-      y:100,
+      y: 100,
       opacity: 0,
       duration: 0.8,
       ease: "power3.out",
       scrollTrigger: {
         trigger: sectionRef.current,
-        start: "top 90%",
+        start: "top 80%",
         end: "bottom 20%",
-        toggleActions: "play reverse play reverse",
+        toggleActions: "restart reverse restart reverse",
       },
     });
 
@@ -74,7 +74,7 @@ const Pricing = ({}) => {
           x: 0,
           opacity: 1,
           duration: 0.8,
-          ease: "power2.out",
+          ease: "power1.out",
           stagger: 0.2,
         }),
       onEnterBack: (batch) =>
@@ -82,7 +82,7 @@ const Pricing = ({}) => {
           x: 0,
           opacity: 1,
           duration: 0.8,
-          ease: "power2.out",
+          ease: "power1.out",
           stagger: 0.2,
         }),
       onLeave: (batch) => gsap.set(batch, { x: 100, opacity: 0 }),
@@ -126,55 +126,56 @@ const Pricing = ({}) => {
 
   return (
     <section ref={sectionRef} className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto">
         <h2
           ref={headingRef}
           className="text-4xl font-bold text-center mb-4 text-blue-600"
         >
           Pricing for {selectedCategory.category}
         </h2>
-        <div className="relative w-full flex items-center">
-      {/* Left Arrow */}
-      {canScrollLeft && (
-        <button
-          onClick={() => scroll("left")}
-          className="absolute left-0 z-10 bg-transparent hover:bg-blue-50"
-        >
-          <ChevronLeft className="w-5 h-5 text-gray-700" />
-        </button>
-      )}
 
-      {/* Scrollable List */}
-      <div
-        ref={containerRef}
-        className="flex gap-3 overflow-x-auto scrollbar-hide-x scroll-smooth w-full px-10 py-2"
-      >
-        {webServices.map((service, idx) => (
-          <span
-            key={idx}
-            ref={(el) => (serviceRef.current[idx] = el)}
-            className={`flex-shrink-0 px-4 py-2 shadow-sm rounded-full text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition  ${
+        <div className="relative w-full flex items-center">
+          {/* Left Arrow */}
+          {canScrollLeft && (
+            <button
+              onClick={() => scroll("left")}
+              className="absolute left-0 z-10 p-2 hover:bg-blue-50 bg-white"
+            >
+              <ChevronLeft className="w-5 h-5 text-gray-700" />
+            </button>
+          )}
+
+          {/* Scrollable List */}
+          <div
+            ref={containerRef}
+            className="flex gap-3 overflow-x-auto scrollbar-hide-x scroll-smooth w-full py-2"
+          >
+            {webServices.map((service, idx) => (
+              <span
+                key={idx}
+                ref={(el) => (serviceRef.current[idx] = el)}
+                className={`flex-shrink-0 px-4 py-2 shadow-sm rounded-full text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition  ${
                   selectedService === service.title
                     ? "bg-blue-100"
                     : "bg-white text-gray-800 hover:bg-gray-100"
                 }`}
-            onClick={() => setSelectedService(service.title)}
-          >
-            {service.title}
-          </span>
-        ))}
-      </div>
+                onClick={() => setSelectedService(service.title)}
+              >
+                {service.title}
+              </span>
+            ))}
+          </div>
 
-      {/* Right Arrow */}
-      {canScrollRight && (
-        <button
-          onClick={() => scroll("right")}
-          className="absolute right-0 z-10 bg-transparent hover:bg-blue-50"
-        >
-          <ChevronRight className="w-5 h-5 text-gray-700" />
-        </button>
-      )}
-    </div>
+          {/* Right Arrow */}
+          {canScrollRight && (
+            <button
+              onClick={() => scroll("right")}
+              className="absolute right-0 z-10 bg-white p-2 hover:bg-blue-50 "
+            >
+              <ChevronRight className="w-5 h-5 text-gray-700" />
+            </button>
+          )}
+        </div>
         <div className="grid gap-8 md:grid-cols-3 mt-12">
           {selectedCategory.plans.map((plan, idx) => (
             <Link
