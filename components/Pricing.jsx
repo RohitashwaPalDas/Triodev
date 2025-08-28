@@ -19,6 +19,7 @@ const Pricing = ({}) => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [selectedService, setSelectedService] = useState("Website Development");
+  const serviceRef = useRef([]);
 
   const checkScroll = () => {
     const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
@@ -47,7 +48,7 @@ const Pricing = ({}) => {
   useGSAP(() => {
     // Heading animation
     gsap.from(headingRef.current, {
-      scale: 0.6,
+      y:100,
       opacity: 0,
       duration: 0.8,
       ease: "power3.out",
@@ -79,6 +80,34 @@ const Pricing = ({}) => {
       onEnterBack: (batch) =>
         gsap.to(batch, {
           x: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          stagger: 0.2,
+        }),
+      onLeave: (batch) => gsap.set(batch, { x: 100, opacity: 0 }),
+      onLeaveBack: (batch) => gsap.set(batch, { x: 100, opacity: 0 }),
+    });
+
+    const services = serviceRef.current.filter(Boolean); // ensure all elements exist
+    gsap.set(services, { y: 100, opacity: 0 }); // initial state
+
+    ScrollTrigger.batch(services, {
+      start: "top 85%",
+      end: "bottom 20%",
+      interval: 0.1, // group quickly appearing cards
+      batchMax: 4, // max cards per batch
+      onEnter: (batch) =>
+        gsap.to(batch, {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          stagger: 0.2,
+        }),
+      onEnterBack: (batch) =>
+        gsap.to(batch, {
+          y: 0,
           opacity: 1,
           duration: 0.8,
           ease: "power2.out",
@@ -123,6 +152,7 @@ const Pricing = ({}) => {
         {webServices.map((service, idx) => (
           <span
             key={idx}
+            ref={(el) => (serviceRef.current[idx] = el)}
             className={`flex-shrink-0 px-4 py-2 shadow-sm rounded-full text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition  ${
                   selectedService === service.title
                     ? "bg-blue-100"

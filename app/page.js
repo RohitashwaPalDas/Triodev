@@ -3,6 +3,7 @@ import CTA from '@/components/CTA';
 import Features from '@/components/Features';
 import HeroSection from '@/components/HeroSection';
 import ScrollToTop from '@/components/ScrollToTop';
+import WebDomains from '@/components/WebDomains';
 import React from 'react';
 
 
@@ -15,6 +16,8 @@ const Home = () => {
       <HeroSection />
 
       <Features />
+
+      <WebDomains/>
 
       <CTA />
 

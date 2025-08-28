@@ -9,8 +9,6 @@ import webServices from "@/data/webServices";
 gsap.registerPlugin(ScrollTrigger);
 
 const WebServices = ({}) => {
-  
-
   const headingRef = useRef(null);
   const subHeadRef = useRef(null);
   const serviceRef = useRef([]);
@@ -70,7 +68,7 @@ const WebServices = ({}) => {
     gsap.set(serviceRef.current, { opacity: 0, scale: 0.4 });
 
     ScrollTrigger.batch(serviceRef.current, {
-      start: "top 80%",
+      start: "top 85%",
       end: "bottom 15%",
       onEnter: (batch) =>
         gsap.fromTo(
@@ -84,18 +82,7 @@ const WebServices = ({}) => {
             overwrite: "auto",
           }
         ),
-      onLeave: (batch) =>
-        gsap.fromTo(
-          batch,
-          { scale: 1, opacity: 1 },
-          {
-            scale: 0.4,
-            opacity: 0,
-            duration: 0.5,
-            stagger: 0.2,
-            overwrite: "auto",
-          }
-        ),
+
       onEnterBack: (batch) =>
         gsap.fromTo(
           batch,
@@ -104,18 +91,6 @@ const WebServices = ({}) => {
             scale: 1,
             opacity: 1,
             duration: 0.8,
-            stagger: 0.2,
-            overwrite: "auto",
-          }
-        ),
-      onLeaveBack: (batch) =>
-        gsap.fromTo(
-          batch,
-          { scale: 1, opacity: 1 },
-          {
-            scale: 0.4,
-            opacity: 0,
-            duration: 0.5,
             stagger: 0.2,
             overwrite: "auto",
           }
@@ -135,7 +110,7 @@ const WebServices = ({}) => {
         </h2>
         <p
           ref={subHeadRef}
-          className="text-center text-gray-600 max-w-2xl mx-auto mb-16"
+          className="text-center text-gray-600 max-w-2xl mx-auto mb-10"
         >
           We offer end-to-end digital solutions to help your business thrive
           online. From design to deployment and beyond, we've got you covered.
@@ -160,11 +135,11 @@ const WebServices = ({}) => {
             ref={sliderRef}
             className="flex space-x-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory px-2 py-2 scrollbar-hide-x"
           >
-            {webServices.map((service,index) => (
+            {webServices.map((service, index) => (
               <div
                 key={index}
                 ref={(el) => (serviceRef.current[index] = el)}
-                className={`min-w-[280px] sm:min-w-[300px] lg:min-w-[320px] snap-center p-6 rounded-lg shadow-lg cursor-pointer transition`}
+                className={`min-w-[280px] sm:min-w-[300px] lg:min-w-[320px] snap-center border-2 border-blue-400 bg-white p-6 rounded-lg shadow-md cursor-pointer hover:bg-blue-50 hover:scale-105 hover:shadow-xl hover:-translate-y-2 transform transition-all duration-300 ease-out `}
               >
                 <div className="mb-4 flex justify-center">{service.icon}</div>
                 <h3 className="text-xl font-semibold mb-2 group-hover:text-blue-600">
@@ -174,8 +149,6 @@ const WebServices = ({}) => {
               </div>
             ))}
           </div>
-
-          
 
           {/* Right Arrow */}
           {canScrollRight && (
