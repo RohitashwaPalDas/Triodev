@@ -1,9 +1,93 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ProjectClientImpact = ({ selectedProject }) => {
+  const headingRef = useRef(null);
+  const cardsRef = useRef([]);
+  const sectionRef = useRef(null);
+
+  useGSAP(() => {
+    // Animate heading
+    gsap.set(headingRef.current, { opacity: 0, scale: 0.6 });
+    ScrollTrigger.create({
+      trigger: headingRef.current,
+      start: "top 85%",
+      end: "bottom 15%",
+      onEnter: () =>
+        gsap.to(headingRef.current, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "power3.out",
+        }),
+      onEnterBack: () =>
+        gsap.to(headingRef.current, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          ease: "power3.out",
+        }),
+      onLeave: () => gsap.set(headingRef.current, { opacity: 0, scale: 0.6 }),
+      onLeaveBack: () =>
+        gsap.set(headingRef.current, { opacity: 0, scale: 0.6 }),
+    });
+
+    gsap.set(cardsRef.current, {
+      opacity: 0,
+      scale: 0.6,
+      x: (i) => (i % 2 === 0 ? -200 : 200),
+    });
+
+    // Batch animate cards
+    ScrollTrigger.batch(cardsRef.current, {
+      start: "top 85%",
+      end: "bottom 15%",
+      interval: 0.1,
+      batchMax: 6,
+      onEnter: (batch) =>
+        gsap.to(batch, {
+          opacity: 1,
+          scale: 1,
+          x: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.15,
+          delay: 0.2, // after heading
+        }),
+      onEnterBack: (batch) =>
+        gsap.to([...batch].reverse(), {
+          opacity: 1,
+          scale: 1,
+          x: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.15,
+          delay: 0.2,
+        }),
+      onLeave: (batch) =>
+        gsap.set(batch, {
+          opacity: 0,
+          scale: 0.6,
+          x: (i) => (i % 2 === 0 ? -200 : 200),
+        }),
+      onLeaveBack: (batch) =>
+        gsap.set(batch, {
+          opacity: 0,
+          scale: 0.6,
+          x: (i) => (i % 2 === 0 ? -200 : 200),
+        }),
+    });
+  }, []);
   return (
-    <div className="relative">
-      <h2 className="text-3xl font-bold mb-10 text-blue-800 flex items-center gap-3">
+    <div ref={sectionRef} className="relative">
+      <h2
+        ref={headingRef}
+        className="text-3xl font-bold mb-10 text-blue-800 flex items-center gap-3"
+      >
         <span className="text-4xl">
           <lord-icon
             src="https://cdn.lordicon.com/tyntlpjn.json"
@@ -19,6 +103,7 @@ const ProjectClientImpact = ({ selectedProject }) => {
       <ul className="grid md:grid-cols-2 gap-8 relative">
         {selectedProject.clientImpact.map((impact, index) => (
           <li
+            ref={(el) => (cardsRef.current[index] = el)}
             key={index}
             className="group relative bg-gradient-to-br from-blue-50 via-white to-blue-100 p-6 rounded-2xl border border-blue-200 shadow-md hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
           >

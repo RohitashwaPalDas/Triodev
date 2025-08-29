@@ -1,10 +1,79 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ProjectTechs = ({ selectedProject }) => {
+  const headingRef = useRef(null);
+    const cardRef = useRef([]);
+    const sectionRef = useRef(null);
+  
+    useGSAP(() => {
+      // Initial states
+      gsap.set(headingRef.current, { opacity: 0, scale: 0.6 });
+      gsap.set(cardRef.current, { opacity: 0, scale: 0.6, x: 200 });
+  
+      // Heading animation
+      ScrollTrigger.create({
+        trigger: headingRef.current,
+        start: "top 85%",
+        end: "bottom 15%",
+        onEnter: () =>
+          gsap.to(headingRef.current, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: "power3.out",
+          }),
+        onEnterBack: () =>
+          gsap.to(headingRef.current, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            ease: "power3.out",
+          }),
+        onLeave: () => gsap.set(headingRef.current, { opacity: 0, scale: 0.6 }),
+        onLeaveBack: () => gsap.set(headingRef.current, { opacity: 0, scale: 0.6 }),
+      });
+  
+      // Cards animation with reverse order on scroll up
+      ScrollTrigger.batch(cardRef.current, {
+        start: "top 85%",
+        end: "bottom 15%",
+        interval: 0.1,
+        batchMax: 6,
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            opacity: 1,
+            scale: 1,
+            x: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.15,
+            delay: 0.2, // after heading
+          }),
+        onEnterBack: (batch) =>
+          gsap.to([...batch].reverse(), {
+            opacity: 1,
+            scale: 1,
+            x: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.15,
+            delay: 0.2,
+          }),
+        onLeave: (batch) =>
+          gsap.set(batch, { opacity: 0, scale: 0.6, x: 200 }),
+        onLeaveBack: (batch) =>
+          gsap.set(batch, { opacity: 0, scale: 0.6, x: 200 }),
+      });
+    }, []);
   return (
-    <div className="relative bg-gradient-to-r from-blue-50 via-sky-50 to-blue-100 rounded-3xl p-10 shadow-lg overflow-hidden">
+    <div ref={sectionRef} className="relative bg-gradient-to-r from-blue-50 via-sky-50 to-blue-100 rounded-3xl p-10 shadow-lg overflow-hidden">
       {/* Heading */}
-      <h2 className="text-3xl font-bold mb-10 text-blue-800 flex items-center gap-3">
+      <h2 ref={headingRef} className="text-3xl font-bold mb-10 text-blue-800 flex items-center gap-3">
         <lord-icon
           src="https://cdn.lordicon.com/asyunleq.json"
           trigger="loop"
@@ -16,10 +85,11 @@ const ProjectTechs = ({ selectedProject }) => {
       </h2>
 
       {/* Tech Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8">
         {selectedProject.techStack.map((tech, index) => (
           <div
             key={index}
+            ref={(el) => (cardRef.current[index] = el)}
             className="group flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-lg rounded-2xl shadow-md hover:shadow-2xl transition duration-300 hover:scale-110 border border-blue-100"
           >
             {/* Tech Logo */}

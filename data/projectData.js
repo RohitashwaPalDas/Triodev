@@ -43,7 +43,7 @@ const projects = [
     description:
       "BongHut is a complete e-commerce solution crafted to provide a modern, fast, and secure online shopping experience. From product discovery to order fulfillment, it is built to maximize customer engagement and business sales.",
     img: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQR5BF8qByqLxlu08Q3uvS_LVl0wxoSQPpEQ&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQR5BF8qByqLxlu08Q3uvS_LVl0wxoSQPpEQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQR5BF8qByqLxlu08Q3uvS_LVl0wxoSQPpEQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQR5BF8qByqLxlu08Q3uvS_LVl0wxoSQPpEQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQR5BF8qByqLxlu08Q3uvS_LVl0wxoSQPpEQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQR5BF8qByqLxlu08Q3uvS_LVl0wxoSQPpEQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQR5BF8qByqLxlu08Q3uvS_LVl0wxoSQPpEQ&s",
     ],
     techStack: [
       { name: "HTML", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
