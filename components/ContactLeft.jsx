@@ -113,11 +113,11 @@ const ContactLeft = () => {
         {[
           {
             icon: <FaPhoneAlt className="text-blue-600 text-2xl" />,
-            text: "+91 98765 43210",
+            text: "+91 62960 66177",
           },
           {
             icon: <FaEnvelope className="text-red-500 text-2xl" />,
-            text: "hello@triodev.com",
+            text: "airdev.web@gmail.com",
           },
           {
             icon: <MdLocationOn className="text-green-600 text-3xl" />,
@@ -141,7 +141,7 @@ const ContactLeft = () => {
         >
           <FaWhatsapp className="text-green-500 text-3xl" />
           <a
-            href="https://wa.me/919876543210"
+            href="https://wa.me/916296066177"
             target="_blank"
             rel="noopener noreferrer"
             className="text-lg text-green-600 hover:underline"

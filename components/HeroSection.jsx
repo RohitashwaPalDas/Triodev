@@ -1,7 +1,9 @@
+"use client";
 import React, { useRef } from "react";
 import { Typewriter } from "react-simple-typewriter";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useRouter } from "next/navigation";
 
 const HeroSection = () => {
   const containerRef = useRef(null);
@@ -9,6 +11,7 @@ const HeroSection = () => {
   const paragraphRef = useRef(null);
   const buttonRef = useRef(null);
   const iframeRef = useRef(null);
+  const router = useRouter();
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -70,6 +73,7 @@ const HeroSection = () => {
           </p>
           <button
             ref={buttonRef}
+            onClick={() => router.push("/services")}
             className="bg-blue-400 hover:bg-blue-500 text-white font-semibold px-6 py-4 rounded-md transition cursor-pointer text-xl"
           >
             Get Started

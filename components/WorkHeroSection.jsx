@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import {useRouter} from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,6 +14,7 @@ const WorkHeroSection = () => {
   const paraRef = useRef(null);
   const buttonRef = useRef(null);
   const lottieRef = useRef(null);
+  const router = useRouter();
   useGSAP(() => {
     const items = [
       headingRef.current,
@@ -125,7 +127,7 @@ const WorkHeroSection = () => {
         </p>
 
         {/* Call to Action */}
-        <button ref={buttonRef} className="mt-8 inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-blue-600 text-white px-6 py-3 rounded-xl font-medium shadow-md hover:shadow-lg hover:scale-105 hover:from-indigo-600 hover:to-blue-700 transition">
+        <button onClick={()=>router.push("/contact")} ref={buttonRef} className="mt-8 inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-blue-600 text-white px-6 py-3 rounded-xl font-medium shadow-md hover:shadow-lg hover:scale-105 hover:from-indigo-600 hover:to-blue-700 transition">
           Start a Project <FaExternalLinkAlt size={16} />
         </button>
       </div>

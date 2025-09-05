@@ -1,7 +1,9 @@
+"use client";
 import React, { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,6 +12,7 @@ const CTA = () => {
   const heading2Ref = useRef(null);
   const paragraphRef = useRef(null);
   const buttonsRef = useRef(null);
+  const router = useRouter();
 
   useGSAP(() => {
     const scrollTimeline = gsap.timeline({
@@ -66,10 +69,10 @@ const CTA = () => {
           ref={buttonsRef}
           className="flex flex-col sm:flex-row justify-center gap-4"
         >
-          <button className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-transform duration-300 hover:bg-blue-600 hover:scale-105 cursor-pointer">
+          <button onClick={() => router.push("/contact")} className="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-transform duration-300 hover:bg-blue-600 hover:scale-105 cursor-pointer">
             Contact Us
           </button>
-          <button className="bg-white text-blue-600 border border-blue-600 px-6 py-3 rounded-full font-semibold shadow-md transition-transform duration-300 hover:bg-blue-50 hover:scale-105 cursor-pointer">
+          <button onClick={() => router.push("/about")} className="bg-white text-blue-600 border border-blue-600 px-6 py-3 rounded-full font-semibold shadow-md transition-transform duration-300 hover:bg-blue-50 hover:scale-105 cursor-pointer">
             Learn More
           </button>
         </div>

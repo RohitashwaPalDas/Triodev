@@ -29,7 +29,7 @@ const PricingDetailClient = ({ selectedCategory, selectedPlan }) => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col">
       <PricingHeroSection selectedPlan={selectedPlan} selectedCategory={selectedCategory}/>
 
-      <PriceHighlight selectedPlan={selectedPlan} />
+      <PriceHighlight selectedPlan={selectedPlan} selectedCategory={selectedCategory}/>
 
       <PricingDetails selectedPlan={selectedPlan} />
 

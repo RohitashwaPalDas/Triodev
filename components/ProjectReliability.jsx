@@ -62,7 +62,6 @@ const ProjectReliability = ({ selectedProject }) => {
       };
 
       layoutLines();
-      // recompute on resize/refresh (e.g., fonts load, content wraps)
       ScrollTrigger.addEventListener("refreshInit", layoutLines);
       ScrollTrigger.refresh();
 

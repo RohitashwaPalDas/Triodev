@@ -100,9 +100,10 @@ const WebServices = ({}) => {
   }, []);
 
   return (
-    <section className="py-10 bg-white relative">
+    <section  className="py-10 bg-white relative">
       <div className="max-w-7xl mx-auto px-6">
         <h2
+        id="services"
           ref={headingRef}
           className="text-4xl font-bold text-center mb-4 text-blue-600"
         >

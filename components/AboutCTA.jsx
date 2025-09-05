@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,6 +11,7 @@ const AboutCTA = () => {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const buttonRef = useRef(null);
+  const router = useRouter();
 
   useGSAP(() => {
     // Heading animation
@@ -53,13 +55,13 @@ const AboutCTA = () => {
       <h2 ref={headingRef} className="text-2xl font-bold mb-4">
         Let’s Build Something Amazing Together
       </h2>
-      <a
+      <button
         ref={buttonRef}
-        href="/contact"
+        onClick={() => router.push("/contact")}
         className="inline-block px-8 py-3 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition duration-300"
       >
         Get in Touch
-      </a>
+      </button>
     </section>
   );
 };

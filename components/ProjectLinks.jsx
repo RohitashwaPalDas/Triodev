@@ -12,7 +12,7 @@ const ProjectLinks = ({ selectedProject }) => {
     gsap.set(btn1Ref.current, { opacity: 0, x:-200 });
     ScrollTrigger.create({
       trigger: btn1Ref.current,
-      start: "top 85%",
+      start: "top 90%",
       end: "bottom 15%",
       onEnter: () =>
         gsap.to(btn1Ref.current, {
@@ -36,7 +36,7 @@ const ProjectLinks = ({ selectedProject }) => {
     gsap.set(btn2Ref.current, { opacity: 0, x:200 });
     ScrollTrigger.create({
       trigger: btn2Ref.current,
-      start: "top 85%",
+      start: "top 90%",
       end: "bottom 15%",
       onEnter: () =>
         gsap.to(btn2Ref.current, {

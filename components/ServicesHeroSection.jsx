@@ -3,6 +3,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,7 +14,7 @@ const ServicesHeroSection = () => {
   const button1Ref = useRef(null);
   const button2Ref = useRef(null);
   const lottieRef = useRef(null);
-
+  const router = useRouter();
   
 
   useGSAP(() => {
@@ -104,13 +105,13 @@ const ServicesHeroSection = () => {
             in the digital world.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <a
-              href="/contact"
+            <button
+              onClick={()=>router.push("/contact")}
               ref={button1Ref}
               className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-100 transition duration-300"
             >
               Start Your Project
-            </a>
+            </button>
             <a
               href="#services"
               ref={button2Ref}
